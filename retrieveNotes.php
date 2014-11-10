@@ -1,7 +1,8 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 class Retrieve_notes{
     function querydb(){
-        $email = "baby";//trim($_POST["email"]);
+        $email = trim($_POST["email"]);
         include_once 'database.php';
         $dbh = $database->create_dbh();
         /*$query = "SELECT notes.noteID, users.email, notes.note  from notes where '".$email."'=users.email" 
