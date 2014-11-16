@@ -18,7 +18,7 @@ class Retrieve_notes {
         $dbh = $database->create_dbh();
         /* $query = "SELECT notes.noteID, users.email, notes.note  from notes where '".$email."'=users.email" 
           ."INNER JOIN users on users.usersID = notes.userID"; */
-        $query = "SELECT note from notes WHERE email = :email";
+        $query = "SELECT title,note from notes WHERE email = :email";
         $sth = $dbh->prepare($query);
         $sth->bindValue("email", $email);
         $sth->execute();
