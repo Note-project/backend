@@ -18,6 +18,6 @@ class Connect_database {
     }
 }    
   $database = new Connect_database();   
-
+  //var_dump($database)." is my database";
 
 
