@@ -10,6 +10,7 @@ class Connect_database {
     function create_dbh() {
         try {
             $dbh = new PDO("mysql:host=$this->host;dbname=$this->database","$this->user", $this->pass);
+            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $dbh;
             
         } catch (PDOException $e) {

@@ -20,6 +20,10 @@ class Receive_notes{
         
         echo $email.$note;
         $dbh = $database->create_dbh();
+        if(isset($_POST[noteID])){
+            $noteID = $_POST;
+            $query = "update table notes set title = :title ,note = :note where noteID = :noteID";
+        }
         $query = "INSERT INTO notes VALUES (NULL,:email,:title,:note)";
         $sth = $dbh->prepare($query);
         $sth->bindValue(':email',$email);

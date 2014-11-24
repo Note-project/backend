@@ -18,11 +18,20 @@ class Retrieve_notes {
         }
         include_once 'database.php';
         $dbh = $database->create_dbh();
-        /* $query = "SELECT notes.noteID, users.email, notes.note  from notes where '".$email."'=users.email" 
-          ."INNER JOIN users on users.usersID = notes.userID"; */
-        $query = "SELECT title,note from notes WHERE email = :email";
-        $sth = $dbh->prepare($query);
-        $sth->bindValue("email", $email);
+        if (isset($_POST['noteID'])){
+            $noteID= $_POST['noteID'];
+            $query = "select title note noteID from notes WHERE email = email";
+            $sth=$dbh->prepare($query);
+            $sth->bindValue(":email");           
+        }
+        else{
+            /* $query = "SELECT notes.noteID, users.email, notes.note  from notes where '".$email."'=users.email" 
+              ."INNER JOIN users on users.usersID = notes.userID"; */
+            $query = "SELECT title,note, noteID from notes WHERE email = :email";
+            $sth = $dbh->prepare($query);
+            $sth->bindValue(":email", $email);
+        }
+        
         $sth->execute();
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         if ($result==null){
