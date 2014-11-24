@@ -20,18 +20,18 @@ class Retrieve_notes {
         $dbh = $database->create_dbh();
         if (isset($_POST['noteID'])){
             $noteID= $_POST['noteID'];
-            $query = "select title note noteID from notes WHERE email = email";
+            $query = "select title, note, noteID from notes WHERE email = email and noteID = :noteID";
             $sth=$dbh->prepare($query);
-            $sth->bindValue(":email");           
+            $sth->bindValue(":noteID");           
         }
         else{
             /* $query = "SELECT notes.noteID, users.email, notes.note  from notes where '".$email."'=users.email" 
               ."INNER JOIN users on users.usersID = notes.userID"; */
             $query = "SELECT title,note, noteID from notes WHERE email = :email";
             $sth = $dbh->prepare($query);
-            $sth->bindValue(":email", $email);
+           
         }
-        
+        $sth->bindValue(":email", $email);
         $sth->execute();
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         if ($result==null){
